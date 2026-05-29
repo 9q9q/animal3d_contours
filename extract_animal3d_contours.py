@@ -4,7 +4,7 @@
 Animal3D project page: https://xujiacong.github.io/Animal3D/
 Animal3D data: https://drive.google.com/drive/folders/17KRe8Z7jCZNDeBu45Wx2zS8Yh2tV_t2v
 
-Main logic: render 8-view (8 azimuths of the same animal) binary masks for every OBJ under `obj_dir` (render_masks()), then extract contours (extract_contours()). 
+Main logic: render 8-view (8 azimuths of the same animal) binary masks for every OBJ under `obj_dir` (render_masks()), extract contours and preprocess(extract_contours()), save to `contours.pt` (torch tensor (N, N_POINTS, 2)).
 Because rendering the masks takes a long time, you can also skip this step if you have the masks already (e.g. from rendered_masks_8views.zip (120MB)).
 Otherwise, generating the masks requires `obj_files/{train,test}/{class}/*.obj` (310MB) downloaded from the Animal3D Google Drive.
 
@@ -17,7 +17,6 @@ By default, this script also does the following (see flags to turn off):
 Example usage, skipping rendering and using existing masks:
 python extract_animal3d_contours.py \
   --skip-render \
-  --data-dir ./animal3d \
   --masks-dir ./animal3d/rendered_masks_8views \
   -o ./animal3d/contours.pt
 
